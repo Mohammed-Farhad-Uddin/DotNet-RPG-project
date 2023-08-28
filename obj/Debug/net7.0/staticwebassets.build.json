@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "GWnoA/ypv2Zg8AI6zOxXr9dSefLI5SvZfklDGgMt9mQ=",
+  "Source": "DotNet-RPG",
+  "BasePath": "_content/DotNet-RPG",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
