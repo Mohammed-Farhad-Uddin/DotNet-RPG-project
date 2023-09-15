@@ -11,8 +11,8 @@ namespace DotNet_RPG.Controllers
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    public class CharacterController:ControllerBase
-    {   
+    public class CharacterController : ControllerBase
+    {
         private readonly ICharacterService _characterService;
         public CharacterController(ICharacterService characterService)
         {
@@ -21,32 +21,37 @@ namespace DotNet_RPG.Controllers
 
         // [AllowAnonymous]//ei attribute ta ei method ta ke [authorize] theke alada rakbe mane ei tar jnno token dewa lagbe na
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get(){
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
+        {
             // ei vabe current user er userId pass kora geleo amra characterService e IHttpContextAccessor dependency inject kore sohoje current userID peye jabo
             // int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)!.Value);
             // return Ok(await _characterService.GetAllCharacter(userId));
 
             return Ok(await _characterService.GetAllCharacter());
-        } 
+        }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int id){
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int id)
+        {
             return Ok(await _characterService.GetSingleCharacter(id));
-        }  
+        }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddCharacterDto newCharacter){
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddCharacterDto newCharacter)
+        {
             return Ok(await _characterService.AddCharacter(newCharacter));
-        } 
+        }
 
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> UpdateCharacter(UpdateCharacterDto updatedCharacter){
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> UpdateCharacter(UpdateCharacterDto updatedCharacter)
+        {
             var respose = await _characterService.UpdateCharacter(updatedCharacter);
 
-            if(respose.Data is null){
+            if (respose.Data is null)
+            {
                 return NotFound(respose);
             }
-            
+
             return Ok(respose);
         }
 
@@ -59,6 +64,12 @@ namespace DotNet_RPG.Controllers
                 return NotFound(response);
             }
             return Ok(response);
-        }      
+        }
+    
+        [HttpPost("Skill")]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> AddCharacterSkill(AddCharacterSkillDto newCharacterSkill)
+        {
+            return Ok(await _characterService.AddCharacterSkill(newCharacterSkill));
+        }
     }
 }
